@@ -1,0 +1,86 @@
+95688880
+pour connecter un repo local à github: git remote add origin https://github.com/erwanjb/cptj.git
+et connecter à master: git pull origin master
+
+pour joindre le nom de domaine avec l'adresse ip se rendre sur l'espace client d'ovh, sélectionner son domaine, aller dans zone DNS et ajouter une entrée de type A et cibler l'adresse ip 
+
+si pb avec php pour phpmyadmin
+enable php7.0 => cd , si pb  disable mpm_event => a2dismod mpm_event
+
+pour mettre un dossier en root de apache:
+éditer /etc/apache2/sites-available(000-default.conf et default-ssl.conf) => change DocumentRoot en le path du dossier
+
+si pb avec phpmyadmin et mysql, supprimer tout les modules mysql visible grace a "sudo dpkg -l | grep -i mysql" puis réinstaller proprement mysql et phpmyadmin
+
+être sur que le password root soit le bon avec 
+
+mysql -uroot
+
+use mysql;
+
+update user set password=PASSWORD("mynewpassword") where User='root'; <== refait le password root en mynewpassword
+
+flush privileges;
+
+quit;
+
+puis forcer en donnant les privilèges
+
+GRANT ALL ON *.* TO 'root'@'localhost' IDENTIFIED BY 'password' WITH GRANT OPTION; <==avec le bon password
+FLUSH PRIVILEGES;
+QUIT;
+
+a ne plus////pour avoir un https prendre la solution ovh ssl gateway gratuite et suivre les instructions du mail avec les adresse IP et les A et AAAAA
+
+faire car////pour rediriger HTTP vers HTTPS dans /etc/apache2/sites-available/000-default.config
+cette sol////en dessous de Document Root, mettre:
+ution ne ////	<IfModule mod_rewrite.c>
+dure que ////            RewriteEngine on
+quelques ////            RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]    
+heures   ////    </IfModule>
+
+avant de faire ceci mettre Document Root au bon dossier
+pour avoir un https, aller sur letsencrypt: https://letsencrypt.org/getting-started/ qui vous conseillera certbot: https://certbot.eff.org/ remplir le software et le system, 
+il faut enable Stretch backports: mettre dans /etc/apt/sources.list : "deb http://ftp.debian.org/debian stretch-backports main" puis faire un apt uptdate + apt upgrade,
+puis installer: "sudo apt-get install python-certbot-apache -t stretch-backports", puis started : "sudo certbot --authenticator webroot --installer apache"
+il gérera aussi la redirection http vers https si vous lui indiquez, il faut aussi mettre quel est le dossier webroot car il reconfigure apache, donc en creer un au préalable.
+Attention vous pouvez mettre plusieurs noms de domaine, il faut donc mettre ledomaine + www.ledomaine exemple : test-ejb.ovh + www.test-ejb.ovh et selectioner le vhost avec le Https tres important
+
+pour démarer le server node et l'obliger à tourner en continue: "node index.js &"
+pour arréter le server, faire "ps" ça affiche les server node qui tournent, prndre le PID
+et faire "kill toto" toto étant le PID du server node.
+
+pour relier un repo local à un repo github
+git remote add origin [URL]
+git pull origin master
+ou git clone [URL]
+
+si pb de ssl ca certificate:
+apt-get install ca-certificates
+
+getssl: cloner le repo github
+et executer le fichier getssl: ./getssl
+si pb : apt-get install dnsutils
+
+
+to active proxi in apache:
+d'abord ouvrir bashrc avec:nano  ~/.bashrc
+mettre:
+#Locales
+export LANGUAGE=fr_FR.UTF-8
+export LANG=fr_FR.UTF-8
+export LC_ALL=fr_FR.UTF-8
+recharger:source ~/.bashrc
+puis:
+sudo a2enmod proxy
+sudo a2enmod proxy_http
+sudo a2enmod proxy_balancer
+sudo a2enmod lbmethod_byrequests
+
+on va passer par un proxi pour que le serveur node simule le https
+changer le fichier /etc/apache2/sites-available/00... qui configure la connexion https: vhost:443
+rajouter à la fin: 
+ProxyPass /toto/ http://test-ejb.ovh:8080/
+ProxyPassReverse /toto/ http://test-ejb.ovh:8080/
+ne pas oublier de changer le axios url par https://test-ejb.ovh/toto, ainsi que de changer dans portail.html
+
