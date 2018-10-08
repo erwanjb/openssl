@@ -84,3 +84,12 @@ ProxyPass /toto/ http://test-ejb.ovh:8080/
 ProxyPassReverse /toto/ http://test-ejb.ovh:8080/
 ne pas oublier de changer le axios url par https://test-ejb.ovh/toto, ainsi que de changer dans portail.html
 
+pour éviter une page d'érreur au rechargement d'une page, il faut rediriger dans le fichier de conf d'apache vhost 443 et mettre à la fin:
+Redirect "/actualites" "https://test-ejb.ovh/"
+Redirect "/revue_de_presse" "https://test-ejb.ovh/"
+Redirect "/apropos" "https://test-ejb.ovh/"
+Redirect "/chronologique" "https://test-ejb.ovh/"
+Redirect "/themes" "https://test-ejb.ovh/"
+Redirect "/contact" "https://test-ejb.ovh/"
+
+
