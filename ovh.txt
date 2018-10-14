@@ -49,6 +49,10 @@ Attention vous pouvez mettre plusieurs noms de domaine, il faut donc mettre ledo
 pour démarer le server node et l'obliger à tourner en continue: "node index.js &"
 pour arréter le server, faire "ps" ça affiche les server node qui tournent, prndre le PID
 et faire "kill toto" toto étant le PID du server node.
+mais le serveur s'arrète au bout d'un moment
+
+Pour celà installer pm2: npm install pm2 -g
+puis se diriger dans le repertoire ou est configuré le serveur et faire: pm2 start index.js
 
 pour relier un repo local à un repo github
 git remote add origin [URL]
