@@ -1,0 +1,15 @@
+{
+  "name": "cptj",
+  "description": "A Vue.js project",
+  "version": "1.0.0",
+  "author": "erwanjb <wawan.jb@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+  },
+  "dependencies": {
+  	"express": "^4.16.3",
+  }
+}
