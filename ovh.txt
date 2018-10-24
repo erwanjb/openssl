@@ -96,4 +96,19 @@ Redirect "/chronologique" "https://test-ejb.ovh/"
 Redirect "/themes" "https://test-ejb.ovh/"
 Redirect "/contact" "https://test-ejb.ovh/"
 
+pour que ie11 puisse lire les promise, il faut installer babel cli: "npm install --save-dev @babel/core @babel/cli"
+et babel polyfill: "npm install --save @babel/polyfill"
+et un babel plugin: "npm install --save-dev babel-plugin-es6-promise"
 
+si c déja fait dans le package json faire un npm install
+
+et rajouter dans .babelrc aprés presets:
+"plugins": ["es6-promise"]
+
+puis compiler  "./node_modules/.bin/babel dist/build.js -o dist/build-compiled.js"
+si complication, enlever les presets et laisser le tableau vide, cependant on ne peut plus build, pour build rajouter les: 
+"
+["env", { "modules": false }],
+"stage-3"
+"
+dans le tableau presets
