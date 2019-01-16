@@ -45,6 +45,7 @@ il faut enable Stretch backports: mettre dans /etc/apt/sources.list : "deb http:
 puis installer: "sudo apt-get install python-certbot-apache -t stretch-backports", puis started : "sudo certbot --authenticator webroot --installer apache"
 il gérera aussi la redirection http vers https si vous lui indiquez, il faut aussi mettre quel est le dossier webroot car il reconfigure apache, donc en creer un au préalable.
 Attention vous pouvez mettre plusieurs noms de domaine, il faut donc mettre ledomaine + www.ledomaine exemple : test-ejb.ovh + www.test-ejb.ovh et selectioner le vhost avec le Https tres important
+pour automatiser le renouvellement: "sudo certbot renew --dry-run"
 
 pour démarer le server node et l'obliger à tourner en continue: "node index.js &"
 pour arréter le server, faire "ps" ça affiche les server node qui tournent, prndre le PID
@@ -112,3 +113,5 @@ si complication, enlever les presets et laisser le tableau vide, cependant on ne
 "stage-3"
 "
 dans le tableau presets
+
+pour mettre des variables d'environnement avec pm2, rajouter : "--update-env" à votre ligne de commande
